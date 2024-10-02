@@ -9,7 +9,7 @@ import random
 import re
 
 # Set up OpenAI API key
-os.environ["OPENAI_API_KEY"] = "your_api_key" #write your API Key in place of your_api_key
+os.environ["OPENAI_API_KEY"] = "your_api_key" # Write your API Key in place of your_api_key
 os.environ["OPENAI_API_BASE"] = "https://openai.vocareum.com/v1"  
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
