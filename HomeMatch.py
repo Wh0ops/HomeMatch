@@ -19,8 +19,8 @@ openai.api_base = os.environ["OPENAI_API_BASE"]
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # FAISS setup
-dimension = 384  # The dimensionality of the sentence embeddings used by all-MiniLM-L6-v2
-index = faiss.IndexFlatL2(dimension)  # L2 distance-based index
+dimension = 384  
+index = faiss.IndexFlatL2(dimension) 
 
 # Function to randomly generate neighborhood names
 def generate_random_location():
@@ -88,14 +88,14 @@ def store_listings_in_faiss():
     property_embeddings = np.array([model.encode(description) for description in property_descriptions])
 
     for idx, description in enumerate(property_descriptions):
-        location = generate_random_location()  # Generate random location
+        location = generate_random_location()  
         properties.append({
             "name": f"Property {idx + 1}",
             "price": "$" + str(np.random.randint(300000, 900000)),
             "bedrooms": str(np.random.randint(2, 6)),
             "bathrooms": str(np.random.randint(1, 4)),
             "size": str(np.random.randint(1500, 3000)) + " sqft",
-            "location": location,  # Use generated location
+            "location": location,  
             "description": description
         })
 
@@ -122,12 +122,12 @@ def collect_buyer_preferences():
 def embed_buyer_preferences(preferences):
     preferences_text = " ".join(preferences.values())
     preferences_embedding = model.encode(preferences_text)
-    print("Preferences embedding generated: ", preferences_embedding)  # Debugging print
+    print("Preferences embedding generated: ", preferences_embedding)  
     return preferences_embedding
 
 # Perform semantic search in FAISS
 def search_listings_faiss(preferences_embedding):
-    distances, indices = index.search(np.array([preferences_embedding]), 10)  # Changed to 10 results
+    distances, indices = index.search(np.array([preferences_embedding]), 10) 
     results = [properties[i] for i in indices[0]]
     return results
 
@@ -154,7 +154,7 @@ def save_listings_to_file(listings, filename="listings.txt"):
             f.write(f"Size: {listing['size']}\n")
             f.write(f"Neighborhood: {listing['location']}\n")
             f.write(f"Property Description: {listing['description']}\n")
-            f.write("\n")  # Add a new line for spacing between listings
+            f.write("\n")  
     print(f"Listings saved to {filename}")
 
 # Main function to run the HomeMatch project
